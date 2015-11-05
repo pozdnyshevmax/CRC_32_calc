@@ -99,9 +99,9 @@ int main(int argc, char *argv[])
 			if (!string(FindFileData.cFileName).find("result_")) continue; //exclude "result_*" files
 			calc_file(FindFileData.cFileName,argc,argv); // calculate file
 		} while (FindNextFileA(hFind, &FindFileData) != 0); //while still find by mask
-
 		FindClose(hFind);
 	}
+	cout << "OK" << endl;
 	system("pause");
 	return 0;
 }
