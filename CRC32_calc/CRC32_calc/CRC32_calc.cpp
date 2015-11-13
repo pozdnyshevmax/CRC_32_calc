@@ -36,13 +36,14 @@ string calc_tag(string file, string BeginTag,string EndTag) { //calcuate text by
 
 string calc_declaration(string file) { //calcuate text by template DECLARATION(TEXT)
 	for (long long i = 1; i < file.size(); i++) {
-		if (file[i] == '(' && (isalpha(file[i - 1]) || ('0' <= file[i - 1] && '9' >= file[i - 1]))) {
-			int end = file.find(')', i);
-			string text = file.substr(i + 1, end - i - 1);
+		if (file[i] == '(' && (isalpha(file[i - 1]) || ('0' <= file[i - 1] && '9' >= file[i - 1]))){ //find "'alpha'("
+			int endD = file.find(')', i); //find end of tamplate
+			if (!endD) break; // if wrong end
+			string text = file.substr(i + 1, endD - i - 1);
 			crc_32 code;
 			code.ProcessCRC((void *)text.c_str(), text.size());
 			text = int_to_hex(code.m_crc32);
-			file.replace(i + 1, end - i - 1, text);
+			file.replace(i + 1, endD - i - 1, text);
 		}
 	}
 	return file;
